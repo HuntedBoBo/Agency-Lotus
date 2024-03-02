@@ -9,16 +9,23 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include <vector>
+#include <string>
+
+/// <summary>
+/// Event class that updates characters and logs changes.
+/// </summary>
 class Event {
 public:
-	// Handles interaction in story characters and dialogue.
-	void progressDialogue();
-	void switchCharacter(int index);
 	// Handles how characters are updated.
-	void updateCharacter(storyChara chara);
+	void updateStoryCharacter(storyChara& chara, bool isFriend, bool isEnemy, bool isTricked, bool isNeutral);
+	void updatePlayerCharacter(playerChara& chara, int fight, int agile, int charisma, int brains);
+
+	std::string getLogs();
 private:
+	int eventParameter;
+	std::vector<std::string> logOfChanges;
 	std::vector<storyChara> storyCharacters;
-	//vector<dialogue> dialogueList; // not implemented yet.
 	playerChara currentCharacter;
 };
 

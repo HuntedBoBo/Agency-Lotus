@@ -5,28 +5,18 @@
 
 class Character {
 protected:
-	int fight;
-	int agile;
-	int charisma;
-	int brains;
+	int fight = 0;
+	int agile = 0;
+	int charisma = 0;
+	int brains = 0;
 public:
+	// Getters
 	int getFStat();
 	int getAStat();
 	int getCStat();
 	int getBStat();
 	Character();
 	Character(int fight, int agile, int charisma, int brains);
-};
-
-class storyChara : public Character {
-private:
-	std::string charaName;
-public:
-	//statuses for NPC's
-	bool isFriend;
-	bool isEnemy;
-	bool isTricked;
-	bool isNuetral;
 };
 
 #endif

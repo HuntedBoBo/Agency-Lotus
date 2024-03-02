@@ -1,14 +1,22 @@
 #include <iostream>
 #include <cstdlib> // For random number generation
 #include "playerChara.h"
+#include "storyChara.h"
+#include "Event.h"
 
 using namespace std;
 
 int main() {
+    // Initializes all player variables.
     playerChara selectedCharacter("", 0, 0, 0, 0);
     string player_location;
     int player_choice;
     string player_status;
+    Event newEvent;
+
+    // Initializes story characters.
+    storyChara cac_corny("Corny", 9, 15, 12, 11);
+    storyChara cac_jop("Joptimus Deere", 17, 8, 12, 8);
 
     // Introduces user and prompts them to select character.
     cout << "Welcome to the Land of Iowa!" << endl;

@@ -8,6 +8,22 @@ string playerChara::getPlayerName() {
 	return playerName;
 }
 
+void playerChara::setFStat(int stat) {
+	fight = stat;
+}
+
+void playerChara::setAStat(int stat) {
+	agile = stat;
+}
+
+void playerChara::setCStat(int stat) {
+	charisma = stat;
+}
+
+void playerChara::setBStat(int stat) {
+	brains = stat;
+}
+
 playerChara::playerChara() {
 
 }
