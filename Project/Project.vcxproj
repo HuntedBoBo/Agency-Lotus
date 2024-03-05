@@ -133,6 +133,7 @@
     <ClCompile Include="playerChara.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="storyChara.cpp" />
+    <ClCompile Include="WeightedDialogue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="playerChara.h" />
     <ClInclude Include="storyChara.h" />
+    <ClInclude Include="WeightedDialogue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

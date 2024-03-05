@@ -11,18 +11,22 @@ public:
     Dialogue(vector<string> options, vector<string> responses);
 
     // Display the available dialogue options based on stats
-    void displayOptions(int fight, int agility, int charisma, int brains);
+    void displayOptions();
 
     // Get the response based on the chosen option
     string getResponse(int option);
 
-private:
+    // Gets option parameter
+    int getSelectedOption() {
+        return selectedOption;
+    }
+protected:
     // Add more options and responses as needed
     vector<string> options;
     vector<string> responses;
 
     // Parameter for checking dialogue option.
-    int selectedOption;
+    int selectedOption = -1;
 };
 
 #endif // DIALOGUE_H

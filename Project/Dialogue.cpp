@@ -21,9 +21,8 @@ Dialogue::Dialogue(vector<string> options, vector<string> responses) {
     this->responses = responses;
 }
 
-void Dialogue::displayOptions(int fight, int agility, int charisma, int brains) {
+void Dialogue::displayOptions() {
     // Display dialogue options based on stats
-    cout << "Available Options:\n";
     for (size_t i = 0; i < options.size(); ++i) {
         cout << i + 1 << ". " << options[i] << "\n";
     }
@@ -33,7 +32,7 @@ string Dialogue::getResponse(int option) {
     // Return the response based on the chosen option
     if (option >= 1 && option <= static_cast<int>(responses.size())) {
         selectedOption = option;
-        return responses[option - 1];
+        return responses[option - 1] + "\n\n";
     } else {
         selectedOption = -1;
         return "Invalid option.";
