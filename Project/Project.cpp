@@ -13,6 +13,7 @@ int main() {
     playerChara selectedCharacter("", 0, 0, 0, 0);
     int player_choice;
     string player_status;
+    string player_location;
     // Initializes Event class incase characters need changing
     Event eventHandler;
 
@@ -25,11 +26,18 @@ int main() {
     vector<string> DIAOPT_ACTONE_Opening{ "Long, dangerous roads that surround the area", "A twisting, maze-like field of maize" };
     vector<string> DIAREP_ACTONE_Opening{ "You begin your journey walking along the seemingly endless roads.", "You begin your journey pushing aside stalks to find the path ahead." };
     vector<string> DIAOPT_ACTONE_DeereEncounter{ "Challenge him to a battle!", "Make a run for it!", "Pretend to leave!", "Explain yourself!"};
+
     // ACTONE_DeereEncounter
     string ACTONE_DeereFightS = "By the end of the battle, you are exhausted, sitting down on the pavement.\nBefore you is a pile of green metal, dented beyond belief, smoke rising from its parts.\nYou have somehow found yourself the victor of this hectic battle.";
     string ACTONE_DeereFightF = "The battle ends fast.\nDeere simply lifted his arm and brought it down onto you with the force of a thousand angry farmers.\nAs a result you lay on the asphalt, most of your bones broken, leaving you immobile.";
-    vector<string> DIASUC_ACTONE_DeereEncounter{ ACTONE_DeereFightS };
-    vector<string> DIAFAIL_ACTONE_DeereEncounter{ ACTONE_DeereFightF };
+    string ACTONE_DeereAgileS = "You do a somersault between the robot's legs before launching yourself forward.\nYou run with all your vigor, your boots sliding along the asphalt, as you avoid all the minor hazards on the road.\nLuckily, you gain a good amount of distance between you and Deere!";
+    string ACTONE_DeereAgileF = "You swerve to the side and try to run past him.\nDeere moves his leg slightly, and you trip over the solid metal.\nAfter you fall to the asphalt, you hear mechanical rumbling as Deere turns and lifts you up by your clothes with his massive claw.";
+    string ACTONE_DeereBrainS = "You then jump and grab onto his back plate.\nIt seems like he doesn’t have a great sense of hearing, as he doesn’t even notice you or feel you.";
+    string ACTONE_DeereBrainF = "You try to dash right past him.\nUnfortunately, the second you appear in front of him he brings down his massive leg onto you. You are rendered immobile, to put it lightly.";
+    string ACTONE_DeereChariS;
+    string ACTONE_DeereChariF;
+    vector<string> DIASUC_ACTONE_DeereEncounter{ ACTONE_DeereFightS, ACTONE_DeereAgileS };
+    vector<string> DIAFAIL_ACTONE_DeereEncounter{ ACTONE_DeereFightF, ACTONE_DeereAgileF };
 
     // Introduces user and prompts them to select character.
     cout << "Welcome to the Land of Iowa!" << endl;
@@ -80,6 +88,7 @@ int main() {
 
     // ACTONE_RoadEnt
     if (DIA_ACTONE_Opening.getSelectedOption() == 1) {
+        player_location = "roads";
         cout << "The area around you is like a desert of green fields, there doesn't seem to be a soul around for miles." << endl;
         cout << "Some of the roads are paved with smooth black asphalt, and some sections are made up of milky-white gravel, with stones that stab at your feet through your shoes." << endl;
         cout << "Just as you begin to assume you're all alone, you hear a bellowing growl resembling the sound of a rockslide." << endl;
@@ -91,13 +100,17 @@ int main() {
         cout << "The robot looks down at you." << endl;
 
         // ACTONE_DeereEncounter
-        cout << "This hulking “guardian” seems to be very suspicious of your motives. What will you do? " << endl;
+        cout << "This hulking \"guardian\" seems to be very suspicious of your motives. What will you do? " << endl;
         WeightedDialogue DIA_ACTONE_DeereEncounter(DIAOPT_ACTONE_DeereEncounter, DIASUC_ACTONE_DeereEncounter, DIAFAIL_ACTONE_DeereEncounter);
         DIA_ACTONE_DeereEncounter.displayOptions();
+        // Gets user input and gets stat response from dialogue.
         cin >> player_choice;
         string DIASTAT_ACTONE_DeereEncounter_Response = DIA_ACTONE_DeereEncounter.getStatResponse(player_choice, cac_jop, selectedCharacter);
         while (DIA_ACTONE_DeereEncounter.getSelectedOption() == -1) {
+            // Posts invalid option and prompts user to try again.
+            cout << DIASTAT_ACTONE_DeereEncounter_Response;
             cout << " Please try again: ";
+            // Updates player choice.
             cin >> player_choice;
             DIASTAT_ACTONE_DeereEncounter_Response = DIA_ACTONE_DeereEncounter.getStatResponse(player_choice, cac_jop, selectedCharacter);
         }
@@ -105,22 +118,49 @@ int main() {
         // ACTONE_DeereFight
         if (DIA_ACTONE_DeereEncounter.getSelectedOption() == 1) {
             cout << "Taking in a deep breath, you brace yourself before shouting out to the automata." << endl;
-            cout << "“If you won’t let me pass, then I have no choice but to destroy you!”" << endl << endl;
+            cout << "\"If you won't let me pass, then I have no choice but to destroy you!\"" << endl << endl;
             cout << "You hear exhaust thrust out of Joptimus Deere’s pipes as he begins to move. The two of you charge at one another." << endl;
-            cout << DIASTAT_ACTONE_DeereEncounter_Response << endl;
+            cout << DIASTAT_ACTONE_DeereEncounter_Response;
 
+            // If action was successful, branch off.
             if (DIA_ACTONE_DeereEncounter.isSuccessful()) {
-                // Success! Break for now.
+                cout << "As you stand up you witness the robot's body begin to move again, and you take that as your cue to make your getaway." << endl;
+                // Success! No return statements should be played.
+                eventHandler.updateStoryCharacter(cac_jop, false, true, false, false);
+            }
+            // Else, game over.
+            else {
+                cout << "While the robot is fearsome, it doesn't mean he has no compassion.\nDeere transforms back into a tractor, and uses his plow to slowly but surely move your body back to the beginning of the roads." << endl;
+                // Failure. Break for now.
+                cout << "==GAME OVER!==";
                 return 0;
             }
+        }
+        // ACTONE_DeereAgile
+        else if (DIA_ACTONE_DeereEncounter.getSelectedOption() == 2) {
+            cout << "In a bold move, you attempt to dash past Joptimus Deere!" << endl;
+            cout << DIASTAT_ACTONE_DeereEncounter_Response;
+
+            // ACTONE_DeereAglS2
+            if (DIA_ACTONE_DeereEncounter.isSuccessful()) {
+                cout << "However, you soon hear the rumbling sound again, along with a hissing whistle." << endl;
+                cout << "You look over your shoulder, and see Deere in his vehicular form chasing you, much faster than you had thought!." << endl;
+                cout << "In mere seconds, the tractor is right next to you!" << endl;
+                cout << "You think of a crazy idea. You could try and jump onto the roof of the vehicle and hitch a ride, or maybe even take control of him! If not that, you’d just try to run faster." << endl;
+                Dialogue ACTONE_DeereAglS2();
+            }
+            // ACTONE_DeereAgileF
             else {
+                cout << "While the robot is fearsome, it doesn't mean he has no compassion.\nDeere transforms back into a tractor, and uses his plow to slowly but surely move your body back to the beginning of the roads." << endl;
                 // Failure. Break for now.
+                cout << "==GAME OVER!==";
                 return 0;
             }
         }
     }
     // ACTONE_FieldEnt
     else if (DIA_ACTONE_Opening.getSelectedOption() == 2) {
+        player_location = "maize";
         cout << "You've chosen to enter the cornfield maze." << endl;
         cout << "Good luck navigating!" << endl;
         if (rand() % 2 == 1) {
@@ -131,6 +171,21 @@ int main() {
         else {
             cout << "You wander through the maze but find no one." << endl;
         }
+    }
+
+    cout << "You made it out of the " << player_location << " alive." << endl;
+    cout << "==END OF ACT ONE==" << endl << endl;
+    // Ends the game with NPC Statuses, if the player is successful.
+    cout << "You've ended the game with the current NPC Statuses:" << endl;
+    if (player_location == "roads") {
+        cout << "Jopitmus Deere Status:" << endl;
+        cout << (cac_jop.getFriendStatus() ? "You have seem to gain his trust.\n" : "");
+        cout << (cac_jop.getEnemyStatus() ? "He now knows you're an enemy for sure.\n" : "");
+        cout << (cac_jop.getTrickedStatus() ? "You have tricked him.\n" : "");
+        cout << (cac_jop.getNeutralStatus() ? "He seems to be wary of you.\n" : "");
+    }
+    else {
+        cout << "You have not met Joptimus Deere in your travels, fortunately." << endl;
     }
 
     return 0;

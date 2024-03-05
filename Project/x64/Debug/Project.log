@@ -1,2 +1,3 @@
 ﻿  Project.cpp
+C:\Users\draxx\Desktop\Homework\College\Advanced C++\Mid-Term Project\Project\Project\Project.cpp(146,26): warning C4930: 'Dialogue ACTONE_DeereAglS2(void)': prototyped function not called (was a variable definition intended?)
   Project.vcxproj -> C:\Users\draxx\Desktop\Homework\College\Advanced C++\Mid-Term Project\Project\x64\Debug\Project.exe
