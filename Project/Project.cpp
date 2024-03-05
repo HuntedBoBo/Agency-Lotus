@@ -32,7 +32,7 @@ int main() {
     string ACTONE_DeereFightF = "The battle ends fast.\nDeere simply lifted his arm and brought it down onto you with the force of a thousand angry farmers.\nAs a result you lay on the asphalt, most of your bones broken, leaving you immobile.";
     string ACTONE_DeereAgileS = "You do a somersault between the robot's legs before launching yourself forward.\nYou run with all your vigor, your boots sliding along the asphalt, as you avoid all the minor hazards on the road.\nLuckily, you gain a good amount of distance between you and Deere!";
     string ACTONE_DeereAgileF = "You swerve to the side and try to run past him.\nDeere moves his leg slightly, and you trip over the solid metal.\nAfter you fall to the asphalt, you hear mechanical rumbling as Deere turns and lifts you up by your clothes with his massive claw.";
-    string ACTONE_DeereBrainS = "You then jump and grab onto his back plate.\nIt seems like he doesn�t have a great sense of hearing, as he doesn�t even notice you or feel you.";
+    string ACTONE_DeereBrainS = "You then jump and grab onto his back plate.\nIt seems like he doesn’t have a great sense of hearing, as he doesn’t even notice you or feel you.";
     string ACTONE_DeereBrainF = "You try to dash right past him.\nUnfortunately, the second you appear in front of him he brings down his massive leg onto you. You are rendered immobile, to put it lightly.";
     string ACTONE_DeereChariS;
     string ACTONE_DeereChariF;
@@ -42,7 +42,7 @@ int main() {
     // Introduces user and prompts them to select character.
     cout << "Welcome to the Land of Iowa!" << endl;
     cout << "Please select your character: " << endl;
-    cout << "1. Carlisle - A level-headed, passionate adventurer who�s a bit out of shape." << endl;
+    cout << "1. Carlisle - A level-headed, passionate adventurer who’s a bit out of shape." << endl;
     cout << "2. Bimblo - Very smart, but quite clumsy." << endl;
     cout << "3. Johnny - Expert fighter, is likable but on the simpler side mentally." << endl;
     cout << "4. Jacquelyn - Fast and quick-witted, with a pretty weak constitution." << endl;
@@ -119,7 +119,7 @@ int main() {
         if (DIA_ACTONE_DeereEncounter.getSelectedOption() == 1) {
             cout << "Taking in a deep breath, you brace yourself before shouting out to the automata." << endl;
             cout << "\"If you won't let me pass, then I have no choice but to destroy you!\"" << endl << endl;
-            cout << "You hear exhaust thrust out of Joptimus Deere�s pipes as he begins to move. The two of you charge at one another." << endl;
+            cout << "You hear exhaust thrust out of Joptimus Deere’s pipes as he begins to move. The two of you charge at one another." << endl;
             cout << DIASTAT_ACTONE_DeereEncounter_Response;
 
             // If action was successful, branch off.
@@ -146,7 +146,7 @@ int main() {
                 cout << "However, you soon hear the rumbling sound again, along with a hissing whistle." << endl;
                 cout << "You look over your shoulder, and see Deere in his vehicular form chasing you, much faster than you had thought!." << endl;
                 cout << "In mere seconds, the tractor is right next to you!" << endl;
-                cout << "You think of a crazy idea. You could try and jump onto the roof of the vehicle and hitch a ride, or maybe even take control of him! If not that, you�d just try to run faster." << endl;
+                cout << "You think of a crazy idea. You could try and jump onto the roof of the vehicle and hitch a ride, or maybe even take control of him! If not that, you’d just try to run faster." << endl;
                 Dialogue ACTONE_DeereAglS2();
             }
             // ACTONE_DeereAgileF
@@ -167,6 +167,46 @@ int main() {
             cout << "You encounter the corn people!" << endl;
             cout << "Specifically, you meet Corny, a friendly member of the corn people." << endl;
             player_status = "safe";
+
+            // Pseudocode for Corny encounter
+            cout << "\"Well if you won’t give them to me, then I guess I’ll have to force them out of you!\"";
+            cout << " You enter a fighting stance, ready to solve your problems with violence." << endl;
+            cout << "You hear the tribe murmur to each other as Corny’s eyes widen." << endl;
+            cout << "\"Hmph. Well, if you insist…\" A tribesperson tosses her a spear, which she points towards you." << endl;
+
+            // ACTONE_CornyFightS
+            WeightedDialogue DIA_ACTONE_CornyFightS(DIAOPT_ACTONE_CornyFightS, DIAREP_ACTONE_CornyFightS);
+            DIA_ACTONE_CornyFightS.displayOptions();
+            cin >> player_choice;
+            string DIASTAT_ACTONE_CornyFightS_Response = DIA_ACTONE_CornyFightS.getStatResponse(player_choice, cac_corny, selectedCharacter);
+            while (DIA_ACTONE_CornyFightS.getSelectedOption() == -1) {
+                cout << DIASTAT_ACTONE_CornyFightS_Response;
+                cout << " Please try again: ";
+                cin >> player_choice;
+                DIASTAT_ACTONE_CornyFightS_Response = DIA_ACTONE_CornyFightS.getStatResponse(player_choice, cac_corny, selectedCharacter);
+            }
+
+            // ACTONE_CornyFgtS2
+            if (DIA_ACTONE_CornyFightS.isSuccessful()) {
+                cout << "While Corny doesn’t say a word, you hear the tribespeople clamor." << endl;
+                cout << "You see the corn-people’s furious faces as they step out of the stalks, flooding the area with their sheer numbers." << endl;
+                cout << "It seems like you’ve utterly enraged the tribe. There’s no talking your way out of this." << endl;
+
+                // ACTONE_CornyFgtS2Y
+                // ACTONE_CornyFgtS2N
+                Dialogue ACTONE_CornyFgtS2Y();
+                Dialogue ACTONE_CornyFgtS2N();
+            } else {
+                // ACTONE_CornyFightF
+                cout << "\"Well if you won’t give them to me, then I guess I’ll have to force them out of you!\"";
+                cout << " You enter a fighting stance, ready to solve your problems with violence." << endl;
+                cout << "You hear the tribe murmur to each other as Corny’s eyes widen." << endl;
+                cout << "\"Hmph. Well, if you insist…\" A tribesperson tosses her a spear, which she points towards you." << endl;
+                cout << "After a tedious duel in the claustrophobic arena, you fall to your knees, covered in bruises caused by getting jabbed by a corncob numerous times." << endl;
+                cout << "You hold your chest, as the internal pain kicks in." << endl;
+
+                // ACTONE_CornyFgtF2
+                Dialogue ACTONE_CornyFgtF2();
         }
         else {
             cout << "You wander through the maze but find no one." << endl;
