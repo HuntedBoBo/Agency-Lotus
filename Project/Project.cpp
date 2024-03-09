@@ -72,6 +72,8 @@ int main() {
         vector<string> DIAREP_ACTONE_CornyAglS2{ "You crouch down to Corny's level and look at her. ", "You crouch down to Corny's level and help her back up. She takes your silence as a signal to get moving, so she proceeds to lead you out of the maze." };
         // ACTONE_CornyBrain
         vector<string> DIAREP_ACTONE_CornyBrnF2{ "Cornered, you decide to come clean. \"I'm sorry, I tried to trick you...the truth is...\" You take a deep breath.", "Not willing to expose yourself, you decide to double down." };
+        // ACTONE_CornyChari
+        vector<string> DIAREP_ACTONE_CornyChariF2{ "After you nod your head, you aren't given a second to react before Corny snaps her fingers with a 'pop.'", "\"Well, it's your funeral.\" Corny says before snapping her fingers with a 'pop.'" };
     #pragma endregion "Corny"
 
     #pragma region "Introduction"
@@ -168,7 +170,7 @@ int main() {
             // If action was successful, branch off.
             if (DIA_ACTONE_DeereEncounter.isSuccessful()) {
                 cout << "As you stand up you witness the robot's body begin to move again, and you take that as your cue to make your getaway." << endl;
-                cout << "After a few more hours of walking, you finally make it to the road’s end." << endl;
+                cout << "After a few more hours of walking, you finally make it to the road's end." << endl;
                 // Success! No return statements should be played.
                 eventHandler.updateStoryCharacter(cac_jop, false, true, false, false);
             }
@@ -188,7 +190,7 @@ int main() {
             // ACTONE_DeereAglS2
             if (DIA_ACTONE_DeereEncounter.isSuccessful()) {
                 cout << "However, you soon hear the rumbling sound again, along with a hissing whistle." << endl;
-                cout << "You look over your shoulder, and see Deere in his vehicular form chasing you, much faster than you had thought!." << endl;
+                cout << "You look over your shoulder, and see Deere in his vehicular form chasing you, much faster than you had thought!" << endl;
                 cout << "In mere seconds, the tractor is right next to you!" << endl;
                 cout << "You think of a crazy idea. You could try and jump onto the roof of the vehicle and hitch a ride, or maybe even take control of him! If not that, you'd just try to run faster." << endl;
                 Dialogue DIA_ACTONE_DeereAglS2(DIAOPT_ACTONE_PARAM_YESNO, DIAREP_ACTONE_DeereAglS2);
@@ -385,7 +387,7 @@ int main() {
                 // ACTONE_CornyFgtS2Y
                 if (DIA_ACTONE_CornyFgtS2.getSelectedOption() == 1) {
                     cout << "Before proceeding, you look back and see the corn stalks rustling as the tribe stops chasing you." << endl;
-                    cout << "Even though now you're safe, you can't help but feel like you’ve made a lot of new enemies." << endl << endl;
+                    cout << "Even though now you're safe, you can't help but feel like you've made a lot of new enemies." << endl << endl;
                     eventHandler.updateStoryCharacter(cac_corny, false, true, false, false);
                 }
                 // ACTONE_CornyFgtS2N
@@ -435,7 +437,7 @@ int main() {
                 }
             }
         }
-        // ACTONE_DeereAgile
+        // ACTONE_CornyAgile
         else if (ACTONE_CornyEncounter.getSelectedOption() == 2) {
             cout << "You panic. You can't think of a single thing to offer her, but it seems like she's going to be the only thing that can get you out of here." << endl;
             cout << "Taking a deep breath, you decide to take drastic measures." << endl;
@@ -472,7 +474,7 @@ int main() {
                 // ACTONE_DeereAglS2N
                 else if (DIA_ACTONE_CornyAgileS.getSelectedOption() == 2) {
                     cout << "After you get to the exit, she rushes back into the stalks without saying a word. You leave with a guilty feeling in your heart." << endl;
-                    eventHandler.updateStoryCharacter(cac_corny, false, true, false, true);
+                    eventHandler.updateStoryCharacter(cac_corny, false, true, false, false);
                 }
             }
             // ACTONE_DeereAglF2
@@ -543,7 +545,7 @@ int main() {
             cout << "You take a deep breath, knowing you have nothing of value on your person. Taking a step forward, you try to come clean to Corny." << endl;
             cout << DIASTAT_ACTONE_CornyEncounter_Response;
 
-            // ACTONE_DeereCharS2
+            // ACTONE_CornyChariS2
             if (ACTONE_CornyEncounter.isSuccessful()) {
                 cout << "Noticing the tribespeople lowering their weapons and whispering to one another, the area gets quieter. You see Corny's expression soften." << endl;
                 cout << "\"I see...you have no choice but to struggle against what the world throws at you. My people also have to fight to survive every day in this maize.\"";
@@ -554,13 +556,48 @@ int main() {
                 cout << "She smiles at you. You say your goodbyes before exiting the maze with newfound confidence." << endl;
                 eventHandler.updateStoryCharacter(cac_corny, true, false, false, false);
             }
+            // ACTONE_CornyChariF2
             else {
-                cout << "\"I have witnessed many ill-mannered invaders like you enter this land only to desecrate the land and exploit its bounties. You seem far from trustworthy.\"" << endl;
-                cout << "The automata leans down, and before you can escape, he grabs you by your clothes with his massive metal claw and brings you up to his face." << endl;
-                cout << "\"Begone, greedy pest!\" He roars, and his arm rotates at an inhuman speed before tossing you into the distance, far beyond the roads." << endl;
-                // Failure. Break for now.
-                cout << "==GAME OVER!==";
-                return 0;
+                cout << "The area grows tenser. You hear the tribespeople chatter between each other." << endl;
+                cout << "Corny crosses her arms and glares at you. \"How am I supposed to believe you? For all I know, you'll ravage this land like the ones that came before you.\"" << endl;
+                cout << "Tribespeople began to emerge from the stalks, their weapons readied. Corny closes her eyes, and thinks for a second." << endl << endl;
+                cout << "\"If you want to prove that you deserve the wealth you crave, then make an agreement with us. If you swear to never desecrate this land, if you can devote yourself to the corn, then we will give you something to assist you on your journey.\" Corny pauses, then speaks up again." << endl;
+                cout << "\"Also, you need to share some of the treasure you find with us. Those are the rules.\"" << endl;
+                cout << "Will you accept Corny's proposal?" << endl;
+                Dialogue ACTONE_CornyChariF2(DIAOPT_ACTONE_PARAM_YESNO, DIAREP_ACTONE_CornyChariF2);
+                ACTONE_CornyChariF2.displayOptions();
+
+                // Then responses are inputted by the user.
+                cin >> player_choice;
+                cout << ACTONE_CornyChariF2.getResponse(player_choice);
+                // Incase the user inputs an invalid option.
+                while (ACTONE_CornyChariF2.getSelectedOption() == -1) {
+                    cout << " Please try again: ";
+                    cin >> player_choice;
+                    cout << ACTONE_CornyChariF2.getResponse(player_choice);
+                }
+
+                // ACTONE_CornyChariF2Y
+                if (ACTONE_CornyChariF2.getSelectedOption() == 1) {
+                    cout << "The tribespeople emerge from the field once more and surround you, before grabbing you and forcing you to sit." << endl;
+                    cout << "Corny approaches you with a cup of a black substance. She digs her thumb in it before smearing a few stripes of it on your face." << endl;
+                    cout << "\"This is a traditional external potion my people use as war paint. It will enhance your movement, making you faster. Use this gift wisely, and don't break our promise.\"";
+                    cout << "After this, you, Corny, and a few members of the tribe then peruse through the maze. When finally at the exit, Corny speaks to you again." << endl;
+                    cout << "\"Good luck out there. If you ever need assistance, we will try to come to your aid.\"" << endl;
+                    cout << "You leave the maze with a rather uneasy feeling." << endl;
+                    eventHandler.updateStoryCharacter(cac_corny, false, false, false, true);
+
+                    // Enhances agility from war paint.
+                    eventHandler.updatePlayerCharacter(selectedCharacter, -1, selectedCharacter.getAStat() + 3, -1, -1);
+                    cout << eventHandler.getLogs();
+                }
+                // ACTONE_CornyChariF2N
+                else if (ACTONE_CornyChariF2.getSelectedOption() == 2) {
+                    cout << "The tribespeople emerge from the corn stalks and surround you. They lift you up with their collective strength and march at an electric speed straight out of the field." << endl;
+                    cout << "You are then thrown on the ground outside of the field, clearly not welcome anymore." << endl;
+                    cout << "==GAME OVER!==";
+                    return 0;
+                }
             }
         }
     }
